@@ -268,7 +268,8 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink, const CVTime
 //------------------------------------------------------------
 -(ofPoint) ofPointFromEvent:(NSEvent*)theEvent {
 	NSPoint p = [theEvent locationInWindow];
-	return ofPoint(p.x, self.frame.size.height - p.y, 0);
+    if (ofGetWindowMode() == OF_FULLSCREEN) return ofPoint(p.x, self.frame.size.height - p.y - [[theEvent window] frame].origin.y, 0);
+    else return ofPoint(p.x, self.frame.size.height - p.y, 0);
 }
 
 //------------------------------------------------------------
